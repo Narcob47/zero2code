@@ -14,12 +14,15 @@ SECRET_KEY = 'django-insecure--c82*7y!e-=6m^x!hz#i6-pu7+=ms0-&-yauait7g$8_ky6ni*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zero2code-i80z.onrender.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'widget_tweaks',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
