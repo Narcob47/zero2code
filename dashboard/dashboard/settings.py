@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ['zero2code-i80z.onrender.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     
-    'widget_tweaks',
+    # 'widget_tweaks',
     
     'django.contrib.admin',
     'django.contrib.auth',
