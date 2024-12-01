@@ -10,6 +10,11 @@ urlpatterns = [
     path('classes/', views.class_list, name='classes'),
     path('assessments/', views.assessment_list, name='assessments'),
     path('projects/', views.project_list, name='projects'),
+    path('profile/', views.profile, name='profile'),
+    path('change-password/', views.change_password, name='change_password'),
+    path('notifications/', views.notifications, name='notifications'),
+     path('notifications/view/<int:notification_id>/', views.view_notification, name='view_notification'),
+    path('notifications/delete/<int:notification_id>/', views.delete_notification, name='delete_notification'),
     
     
     path('course/<slug:slug>/', views.course_detail, name='course_detail'),
@@ -19,9 +24,6 @@ urlpatterns = [
     
     path('project/<slug:slug>/', views.project_detail, name='project_detail'),
     
-    
-    # path('challenges/', views.challenge_list, name='challenges'),
-    path('notifications/', views.notifications, name='notifications'),
     path('account/', views.account, name='account'),
     path('settings/', views.settings, name='settings'),
     

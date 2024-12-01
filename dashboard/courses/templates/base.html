@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Bootcamp{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3a3f083ec4.js" crossorigin="anonymous"></script>
     <script>
@@ -57,7 +59,7 @@
                 <p class="text-2xl font-bold">Bootcamp</p>
                 <div>
                     <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'notifications' %}')"><i class="fa-regular fa-bell"></i></button>
-                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'account' %}')"><i class="fa-regular fa-user"></i></button>
+                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'profile' %}')"><i class="fa-regular fa-user"></i></button>
                     <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'settings' %}')"><i class="fa-solid fa-gear"></i> </button>
                 </div>
             </div>
