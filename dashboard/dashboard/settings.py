@@ -16,6 +16,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['zero2code-i80z.onrender.com', '127.0.0.1']
 
+# Add your domain to CSRF_TRUSTED_ORIGINS
+CSRF_TRUSTED_ORIGINS = [
+    'https://zero2code-i80z.onrender.com',
+]
 
 # Application definition
 
