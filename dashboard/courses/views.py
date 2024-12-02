@@ -94,7 +94,7 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('profile')
+            return redirect('dashboard')
     else:
         user_form = UserForm(instance=user)
         profile_form = UserProfileForm(instance=user_profile)
@@ -111,7 +111,7 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            return redirect('profile')
+            return redirect('dashboard')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
