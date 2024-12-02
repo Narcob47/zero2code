@@ -32,14 +32,10 @@ def course_list(request):
 @login_required
 def course_detail(request, slug):
     course = get_object_or_404(Course, slug=slug)
-    assessments = course.assessments.all()
-    materials = course.materials.all()
-    projects = course.projects.all()
-    return render(request, 'courses/course_detail.html', {
+    modules = course.modules.all()
+    return render(request, 'course_detail.html', {
         'course': course,
-        'assessments': assessments,
-        'materials': materials,
-        'projects': projects
+        'modules': modules,
     })
 
 @login_required

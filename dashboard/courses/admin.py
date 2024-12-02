@@ -1,10 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification
+from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, CourseModule
 
 # Define an inline admin descriptor for UserProfile model
 # which acts a bit like a singleton
+
+class CourseModuleInline(admin.TabularInline):
+    model = CourseModule
+    extra = 1
+
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
@@ -21,10 +26,19 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
+
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'description')
     prepopulated_fields = {'slug': ('title',)}
+    inlines = [CourseModuleInline]
+    
+
+@admin.register(CourseModule)
+class CourseModuleAdmin(admin.ModelAdmin):
+    list_display = ('module', 'course', 'order')
+    list_filter = ('course',)
+    search_fields = ('module', 'course__title')
 
 @admin.register(Assessment)
 class AssessmentAdmin(admin.ModelAdmin):

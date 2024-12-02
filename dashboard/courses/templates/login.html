@@ -17,6 +17,12 @@
         <!-- Login Form -->
         <form method="POST" class="mt-6">
             {% csrf_token %}
+            <!-- Display error message if form is invalid -->
+            {% if form.errors %}
+            <div class="mb-4 text-red-500 text-sm text-center">
+                Invalid email or password. Please try again.
+            </div>
+            {% endif %}
             <!-- Email Input -->
             <div class="mb-4">
                 <label for="id_username" class="block text-sm font-semibold text-gray-600">Email</label>
@@ -27,6 +33,7 @@
             <div class="mb-4">
                 <label for="id_password" class="block text-sm font-semibold text-gray-600">Password</label>
                 {{ form.password }}
+            </div>
             
             <!-- Remember Me & Forgot Password -->
             <div class="flex mt-4 items-center justify-between mb-4">
@@ -37,7 +44,7 @@
                         class="form-checkbox text-blue-500 focus:ring focus:ring-blue-300">
                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
-                <a href="/password-reset" class="text-sm text-blue-500 hover:underline">Forgot password?</a>
+                {% comment %} <a href="/password-reset" class="text-sm text-blue-500 hover:underline">Forgot password?</a> {% endcomment %}
             </div>
 
             <!-- Submit Button -->

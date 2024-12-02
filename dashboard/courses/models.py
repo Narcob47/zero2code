@@ -9,6 +9,17 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
+class CourseModule(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
+    module = models.CharField(max_length=200)
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.module
 
 class Assessment(models.Model):
     title = models.CharField(max_length=200)

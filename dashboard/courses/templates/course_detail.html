@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">{{ course.title }}</h1>
+    <p class="text-gray-700 text-base mb-4">{{ course.description }}</p>
+    <h2 class="text-xl font-bold mb-4">Course Modules</h2>
+    <ul class="flex flex-wrap gap-4 list-none pl-0">
+        {% for module in modules %}
+        <li class="w-full">
+            <div class=" rounded overflow-hidden shadow-lg">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ module.module }}</div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
