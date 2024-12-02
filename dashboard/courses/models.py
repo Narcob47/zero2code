@@ -57,6 +57,17 @@ class Class(models.Model):
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to='class_images/', null=True, blank=True)
     link = models.URLField(max_length=200)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='classes')
+
+    def __str__(self):
+        return self.title
+
+class Recording(models.Model):
+    title = models.CharField(max_length=200)
+    video_link = models.URLField()
+    preview_image = models.URLField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='recordings')
+    class_fk = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='recordings')
 
     def __str__(self):
         return self.title

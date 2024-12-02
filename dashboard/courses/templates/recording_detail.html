@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">{{ recording.title }}</h1>
+    <img class="w-full mb-4" src="{{ recording.preview_image }}" alt="Preview Image">
+    <p class="text-gray-700 text-base mb-4">
+        <a href="{{ recording.video_link }}" class="text-blue-500 hover:text-blue-700">Watch Video</a>
+    </p>
+</div>
+{% endblock %}

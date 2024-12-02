@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification
+from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, Recording
 from .forms import CustomLoginForm, UserProfileForm, UserForm
 
 def login_view(request):
@@ -129,3 +128,11 @@ def delete_notification(request, notification_id):
         notification.save()
         return redirect('notifications')
     return render(request, 'delete_notification.html', {'notification': notification})
+
+def recording_list(request):
+    recordings = Recording.objects.all()
+    return render(request, 'recording_list.html', {'recordings': recordings})
+
+def recording_detail(request, pk):
+    recording = get_object_or_404(Recording, pk=pk)
+    return render(request, 'recording_detail.html', {'recording': recording})
