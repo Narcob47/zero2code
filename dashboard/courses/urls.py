@@ -15,7 +15,7 @@ urlpatterns = [
     path('notifications/', views.notifications, name='notifications'),
     path('notifications/view/<int:notification_id>/', views.view_notification, name='view_notification'),
     path('notifications/delete/<int:notification_id>/', views.delete_notification, name='delete_notification'),
-    path('recordings/', views.recording_list, name='recording_list'),
+    path('recordings/', views.recording_list, name='recordings'),
     path('recordings/<int:pk>/', views.recording_detail, name='recording_detail'),
     
     path('course/<slug:slug>/', views.course_detail, name='course_detail'),
