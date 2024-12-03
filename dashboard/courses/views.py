@@ -130,10 +130,12 @@ def delete_notification(request, notification_id):
         return redirect('notifications')
     return render(request, 'delete_notification.html', {'notification': notification})
 
+@login_required
 def recording_list(request):
     recordings = Recording.objects.all()
     return render(request, 'recording_list.html', {'recordings': recordings})
 
+@login_required
 def recording_detail(request, pk):
     recording = get_object_or_404(Recording, pk=pk)
     return render(request, 'recording_detail.html', {'recording': recording})
@@ -152,6 +154,7 @@ def submit_assessment(request, slug):
         form = AssessmentSubmissionForm(instance=assessment)
     return render(request, 'submit_assessment.html', {'form': form, 'assessment': assessment})
 
+@login_required
 def support(request):
     if request.method == 'POST':
         form = SupportForm(request.POST)
@@ -168,8 +171,10 @@ def support(request):
         form = SupportForm()
     return render(request, 'support.html', {'form': form})
 
+@login_required
 def support_success(request):
     return render(request, 'support_success.html')
 
+@login_required
 def next_view(request):
     return render(request, 'next.html')
