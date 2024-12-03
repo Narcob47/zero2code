@@ -1,9 +1,9 @@
 
-<div class="p-4">
+<div class="">
     <h1 class="text-2xl font-bold mb-4">Classes</h1>
     <ul class="flex flex-wrap gap-3 list-none pl-0">
         {% for class in classes %}
-        <li class="w-full md:w-1/4">
+        <li class="w-full md:w-64">
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 {% if class.image %}
                 <img class="w-full" src="{{ class.image.url }}" alt="Class Image">

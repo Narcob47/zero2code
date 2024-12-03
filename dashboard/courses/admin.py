@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, CourseModule, Recording
+from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, CourseModule, Recording, AssessmentDetail
 
 # Define an inline admin descriptor for UserProfile model
 # which acts a bit like a singleton
@@ -76,3 +76,9 @@ class RecordingAdmin(admin.ModelAdmin):
     list_display = ('title', 'course', 'class_fk', 'video_link')
     list_filter = ('course', 'class_fk')
     search_fields = ('title', 'course__title', 'class_fk__title')
+
+@admin.register(AssessmentDetail)
+class AssessmentDetailAdmin(admin.ModelAdmin):
+    list_display = ('title', 'course', 'submission_deadline')
+    list_filter = ('course',)
+    search_fields = ('title', 'course__title')

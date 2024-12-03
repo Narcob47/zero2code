@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">{{ assessment.title }}</h1>
+    <p class="text-gray-700 text-base mb-4">{{ assessment.description }}</p>
+    <a href="{{ assessment.pdf.url }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Download Assessment
+    </a>
+    <p class="text-gray-700 text-base mt-4 mb-8">Submission Deadline: {{ assessment.submission_deadline }}</p>
+    {% if assessment.github_link %}
+    <p class="text-gray-700 text-base mt-32">Submitted GitHub Link: <a href="{{ assessment.github_link }}" class="text-blue-500 hover:text-blue-700">{{ assessment.github_link }}</a></p>
+    {% endif %}
+    <a href="{% url 'submit_assessment' assessment.slug %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">
+        Submit Assessment
+    </a>
+</div>
+{% endblock %}

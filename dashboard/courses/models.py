@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
@@ -25,8 +26,25 @@ class Assessment(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    file = models.FileField(upload_to='assessments/')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assessments')
+
+    def __str__(self):
+        return self.title
+
+class AssessmentDetail(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assessment_details')
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    description = models.TextField()
+    pdf = models.FileField(upload_to='assessments/')
+    submission_deadline = models.DateTimeField()
+    github_link = models.URLField(blank=True, null=True)
+    submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='submissions', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -65,7 +83,7 @@ class Class(models.Model):
 class Recording(models.Model):
     title = models.CharField(max_length=200)
     video_link = models.URLField()
-    preview_image = models.URLField()
+    preview_image = models.ImageField(upload_to='recordings_images/', null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='recordings')
     class_fk = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='recordings')
 

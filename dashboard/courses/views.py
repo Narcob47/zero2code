@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, Recording
-from .forms import CustomLoginForm, UserProfileForm, UserForm
+from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, Recording, AssessmentDetail
+from .forms import CustomLoginForm, UserProfileForm, UserForm, AssessmentSubmissionForm
 
 def login_view(request):
     if request.method == 'POST':
@@ -71,8 +71,8 @@ def settings(request):
     return render(request, 'settings.html')
 
 def assessment_detail(request, slug):
-    assessment = get_object_or_404(Assessment, slug=slug)
-    return render(request, 'assessments/assessment_detail.html', {'assessment': assessment})
+    assessment = get_object_or_404(AssessmentDetail, slug=slug)
+    return render(request, 'assessment_detail.html', {'assessment': assessment})
 
 def material_detail(request):
     material = Material.objects.all()
@@ -136,3 +136,17 @@ def recording_list(request):
 def recording_detail(request, pk):
     recording = get_object_or_404(Recording, pk=pk)
     return render(request, 'recording_detail.html', {'recording': recording})
+
+@login_required
+def submit_assessment(request, slug):
+    assessment = get_object_or_404(AssessmentDetail, slug=slug)
+    if request.method == 'POST':
+        form = AssessmentSubmissionForm(request.POST, instance=assessment)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.submitted_by = request.user
+            submission.save()
+            return redirect('assessment_detail', slug=slug)
+    else:
+        form = AssessmentSubmissionForm(instance=assessment)
+    return render(request, 'submit_assessment.html', {'form': form, 'assessment': assessment})

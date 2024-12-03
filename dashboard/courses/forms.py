@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, AssessmentDetail
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -77,3 +77,15 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             'placeholder': 'Confirm your new password',
         })
     )
+
+class AssessmentSubmissionForm(forms.ModelForm):
+    github_link = forms.URLField(
+        widget=forms.URLInput(attrs={
+            'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
+            'placeholder': 'Enter your GitHub link',
+        })
+    )
+
+    class Meta:
+        model = AssessmentDetail
+        fields = ['github_link']
