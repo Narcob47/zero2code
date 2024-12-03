@@ -1,3 +1,4 @@
+# from typing import ReadOnly
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
@@ -18,33 +19,48 @@ class CustomLoginForm(AuthenticationForm):
     )
 
 class UserProfileForm(forms.ModelForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
+            'placeholder': 'Enter your username',
+            'readonly': 'readonly',
+        })
+    )
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
             'placeholder': 'Enter your first name',
-        })
+        }),
+        # required=False
     )
     last_name = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
             'placeholder': 'Enter your last name',
-        })
+        }),
+        # required=False
     )
     address = forms.CharField(
-        widget=forms.TextInput(attrs={
+        widget=forms.Textarea(attrs={
             'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
             'placeholder': 'Enter your address',
-        })
+        }),
+        # required=False
     )
     profile_picture = forms.ImageField(
         widget=forms.FileInput(attrs={
             'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
-        })
+        }),
+        # required=False
     )
 
     class Meta:
         model = UserProfile
-        fields = ['first_name', 'last_name', 'address', 'profile_picture']
+        fields = ['username', 'first_name', 'last_name', 'address', 'profile_picture']
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['username'].initial = self.instance.user.username
 
 class UserForm(forms.ModelForm):
     email = forms.EmailField(
