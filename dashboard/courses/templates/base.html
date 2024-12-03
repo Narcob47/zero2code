@@ -42,12 +42,26 @@
                 <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'materials' %}')">Materials</a>
                 <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'assessments' %}')">Assessments</a>
                 <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'projects' %}')">Projects</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'next_view' %}')">Next Gen</a>
             </nav>
+            <!-- Bottom Section -->
             <div class="mt-auto">
+                <!-- Logout Button -->
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700">Logout</button>
+                    <button type="submit" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700">
+                        Logout
+                    </button>
                 </form>
+                <!-- Support Button -->
+                <button onclick="loadContent('{% url 'support' %}')" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700 mt-32">
+                    Support
+                </button>
+                <div class="text-left py-2 px-4">
+                    <p>supported:</p>
+                    <p>funcodes initiatives</p>
+                    <p>geco games studios</p>
+                </div>
             </div>
         </div>
         <!-- Main Content -->
@@ -57,7 +71,7 @@
                 <button class="lg:hidden text-white" onclick="toggleDrawer()">
                     <i class="fa fa-bars"></i>
                 </button>
-                <p class="text-2xl font-bold">Bootcamp</p>
+                <p class="text-2xl font-bold">Zero2Code - Bootcamp</p>
                 <div>
                     <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'notifications' %}')"><i class="fa-regular fa-bell"></i></button>
                     <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'profile' %}')"><i class="fa-regular fa-user"></i></button>

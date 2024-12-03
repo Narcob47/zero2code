@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.mail import send_mail
 from .models import Course, Assessment, Material, Project, Class, UserProfile, Notification, Recording, AssessmentDetail
-from .forms import CustomLoginForm, UserProfileForm, UserForm, AssessmentSubmissionForm
+from .forms import CustomLoginForm, UserProfileForm, UserForm, AssessmentSubmissionForm, SupportForm
 
 def login_view(request):
     if request.method == 'POST':
@@ -150,3 +151,25 @@ def submit_assessment(request, slug):
     else:
         form = AssessmentSubmissionForm(instance=assessment)
     return render(request, 'submit_assessment.html', {'form': form, 'assessment': assessment})
+
+def support(request):
+    if request.method == 'POST':
+        form = SupportForm(request.POST)
+        if form.is_valid():
+            # Send email or handle the support request
+            send_mail(
+                subject=f"Support Request from {form.cleaned_data['name']}",
+                message=form.cleaned_data['message'],
+                from_email=form.cleaned_data['email'],
+                recipient_list=['support@example.com'],
+            )
+            return redirect('support_success')
+    else:
+        form = SupportForm()
+    return render(request, 'support.html', {'form': form})
+
+def support_success(request):
+    return render(request, 'support_success.html')
+
+def next_view(request):
+    return render(request, 'next.html')

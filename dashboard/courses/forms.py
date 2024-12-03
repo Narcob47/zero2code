@@ -105,3 +105,23 @@ class AssessmentSubmissionForm(forms.ModelForm):
     class Meta:
         model = AssessmentDetail
         fields = ['github_link']
+
+class SupportForm(forms.Form):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
+            'placeholder': 'Enter your name',
+        })
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
+            'placeholder': 'Enter your email',
+        })
+    )
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'block w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-lg focus:ring focus:ring-blue-300 focus:border-blue-400 focus:outline-none',
+            'placeholder': 'Enter your message',
+        })
+    )
