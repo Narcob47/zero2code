@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Bootcamp{% endblock %}</title>
+    <title>{% block title %}Zero2Code{% endblock %}</title>
     {% load static %}
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -28,36 +28,46 @@
             const drawer = document.getElementById('drawer');
             drawer.classList.toggle('-translate-x-full');
         }
+
+        function closeDrawerOnMobile() {
+            const drawer = document.getElementById('drawer');
+            if (window.innerWidth < 1024) {
+                drawer.classList.add('-translate-x-full');
+            }
+        }
     </script>
 </head>
 <body class="flex flex-col min-h-screen">
     <div class="flex flex-1">
         <!-- Drawer -->
-        <div id="drawer" class="fixed top-0 left-0 bottom-0 w-64 bg-gray-800 text-white h-auto p-4 transform -translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-1/4 xl:w-1/5 border-r border-white">
-            <p class="text-2xl font-bold ml-4">Zero<span class="text-3xl" style="color:#26DF7D;">2</span>code</p>
+        <div id="drawer" class="fixed top-0 left-0 bottom-0 w-64 bg-gray-800 text-white h-full p-4 transform -translate-x-full transition-transform lg:relative lg:translate-x-0 lg:w-1/4 xl:w-1/5 border-r border-gray-700">
+            <div class="flex justify-between items-center">
+                <p class="text-2xl font-bold ml-4">Zero<span class="text-3xl" style="color:#26DF7D;">2</span>code</p>
+                <button class="lg:hidden text-white" onclick="toggleDrawer()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
             <nav class="mt-12">
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'courses' %}')">Courses</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'classes' %}')">Classes</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'recordings' %}')">Recordings</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'materials' %}')">Materials</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'assessments' %}')">Assessments</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'projects' %}')">Projects</a>
-                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'next_view' %}')">Next Gen</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'courses' %}'); closeDrawerOnMobile()">Courses</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'classes' %}'); closeDrawerOnMobile()">Classes</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'recordings' %}'); closeDrawerOnMobile()">Recordings</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'materials' %}'); closeDrawerOnMobile()">Materials</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'assessments' %}'); closeDrawerOnMobile()">Assessments</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'projects' %}'); closeDrawerOnMobile()">Projects</a>
+                <a href="#" class="block text-lg font-bold py-2 px-4 hover:bg-gray-700" onclick="loadContent('{% url 'next_view' %}'); closeDrawerOnMobile()">Next Gen</a>
             </nav>
             <!-- Bottom Section -->
             <div class="mt-auto">
-                <!-- Logout Button -->
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700">
                         Logout
                     </button>
                 </form>
-                <!-- Support Button -->
-                <button onclick="loadContent('{% url 'support' %}')" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700 mt-32">
+                <button onclick="loadContent('{% url 'support' %}')" class="block text-lg font-bold py-2 px-4 w-full text-left hover:bg-gray-700 mt-12">
                     Support
                 </button>
-                <div class="text-left py-2 px-4">
+                <div class="text-left py-2 px-4 mt-4">
                     <p>supported:</p>
                     <p>funcodes initiatives</p>
                     <p>geco games studios</p>
@@ -65,17 +75,23 @@
             </div>
         </div>
         <!-- Main Content -->
-        <div class="flex-1 ml-0 lg:ml-0 ">
+        <div class="flex-1 ml-0 lg:ml-0">
             <!-- Header -->
             <div class="flex justify-between items-center bg-gray-800 text-white p-4 fixed top-0 w-full lg:relative lg:w-auto z-10">
                 <button class="lg:hidden text-white" onclick="toggleDrawer()">
                     <i class="fa fa-bars"></i>
                 </button>
-                <p class="text-2xl font-bold">Zero2Code - Bootcamp</p>
+                <p class="text-2xl font-bold">Bootcamp</p>
                 <div>
-                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'notifications' %}')"><i class="fa-regular fa-bell"></i></button>
-                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'profile' %}')"><i class="fa-regular fa-user"></i></button>
-                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'settings' %}')"><i class="fa-solid fa-gear"></i> </button>
+                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'notifications' %}')">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'profile' %}')">
+                        <i class="fa-regular fa-user"></i>
+                    </button>
+                    <button style="background: #26DF7D;" class="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="loadContent('{% url 'settings' %}')">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
                 </div>
             </div>
             <!-- Page Content -->
